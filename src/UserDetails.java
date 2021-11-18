@@ -1,15 +1,32 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class UserDetails {
-/*
-* userDetailsVerify() method to verify details of users and return boolean output
-* */
-    public boolean userDetailsVerify(String [] list){
-        if (list.length == 0)
-        {
-            return false;
-        }                                                                               //Declaring regex for name, Lastname,email,password.
+
+   public static void main(String[] args) throws InvalidDetails {
+       UserDetails userDetails= new UserDetails();
+
+       userDetails.userDetailsVerify();
+   }
+    /*
+     * userDetailsVerify() method to verify details of users and return boolean output
+     * */
+
+    public void userDetailsVerify() throws InvalidDetails{
+
+        UserDetails userDetails = new UserDetails();                    //Taking inputs from User
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Your Name : ");
+        String name = scanner.next();
+        System.out.println("Enter your Last Name : ");
+        String lastName = scanner.next();
+        System.out.println("Enter your Email ID : ");
+        String email = scanner.next();
+        System.out.println("Enter Your Password : ");
+        String password = scanner.next();                                       //Declaring regex for name, Lastname,email,password.
+
+
         String nameRegex = "^[A-Z a-z]{3}";
         String lastNameRegex = "^[A-Z]{1}[A-Z a-z]{2}";
         String emailRegex ="^(abc)[\\.]{1}[a-z,A-Z]{3}[\\@]{1}(bl)[\\.]{1}(co)[\\.][a-z]{2}$";
@@ -21,13 +38,23 @@ public class UserDetails {
         Pattern passwordPattern= Pattern.compile(passwordRegex);
 
 
-        if (namePattern.matcher(list[0]).matches() && lastNamePattern.matcher(list[1]).matches() && emailPattern.matcher(list[2]).matches() && passwordPattern.matcher(list[3]).matches())
+
+        if (namePattern.matcher(name).matches() == false)                   // checking details in correct format or not and throwing Exception to specific type if find any
         {
-            return true;
+            throw new InvalidDetails(" Name Entered is not Valid");
         }
-        else
+        else if ((namePattern.matcher(lastName).matches() == false))
         {
-            return false;
+            throw new InvalidDetails(" Last Name Entered is not Valid");
         }
+        else if ((namePattern.matcher(email).matches() == false))
+        {
+            throw new InvalidDetails("  Email Entered is not Valid");
+        }
+        else if ((namePattern.matcher(password).matches() == false))
+        {
+            throw new InvalidDetails(" Password Entered is not Valid");
+        }
+
     }
 }
